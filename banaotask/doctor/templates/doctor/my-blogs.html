@@ -1,0 +1,33 @@
+{% extends 'doctor/doc-dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <h1>My Blogs</h1>
+        {% if blogs %}
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="{{ blog.blog_pic.url }}" alt="Blog image">
+                    <div class="card-body">
+                        <h2 class="card-title">Title:- {{ blog.title }}</h2>
+                        <h2 class="card-title">Category: {{ blog.category.name }}</h2>
+                        <p class="card-text"><b>Posted at:-</b> {{ blog.created_at }}</p>
+
+                        <p class="card-text" id="description">{{ blog.description }}</p>
+                        {% comment %} <a href="#" class="btn btn-primary" id="read-more">Read more</a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>You have not written any blogs yet.</p>
+        {% endif %}
+    </div>
+</section>
+
+
+{% endblock %}

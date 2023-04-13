@@ -1,0 +1,37 @@
+{% load static %}
+<html>
+<head>
+	<title>Patient Dashboard</title>
+    <link rel="stylesheet" href="{% static 'doctor\assets\css\doc-dashboard.css' %}">
+	<link rel="stylesheet" href="{% static 'doctor\assets\css\add-blogs.css' %}">
+
+	
+</head>
+<body>
+	<div id="header">
+		<h1>Patient Dashboard</h1>
+		<a href="{% url 'login'%}">Logout</a>
+		<a href="{% url 'all-blogs'%}">Blogs</a>
+		<a href="{% url 'patient-dashboard'%}">Home</a>
+		
+	</div>
+	{% block content %}
+<section>	
+	<div id="content">
+		<h2>Hello, {{ pid.firstname }}</h2>
+		<h3>Personal Details:-</h3>
+        <img src= {{ pid.profile_pic.url }} class="profile-pic" alt="Profile Picture">
+
+		<p>Firstname: {{ pid.firstname }}</p>
+		<p>Lastname: {{ pid.lastname }}</p>
+		<p>Email: {{ uid.email }}</p>
+		<p>Username: {{ uid.username }}</p>
+		<p>Address: {{ pid.address }}</p>
+		<p>City: {{ pid.city }}</p>
+		<p>State: {{ pid.state }}</p>
+		<p>Pincode: {{ pid.pincode }}</p>	
+	</div>
+	</section>
+</body>
+</html>
+{% endblock %} 

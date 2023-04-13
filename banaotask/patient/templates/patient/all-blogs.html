@@ -1,0 +1,67 @@
+{% extends 'patient/patient-dashboard.html' %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <h1>Blog Categories</h1>
+        <form action="{% url 'all-blogs' %}" method="get">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="category">Select a category:</label>
+                <select class="form-control" name="category" id="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">View Blogs</button>
+        </form>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        {% if blogs %}
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img class="card-img-top" src="{{ blog.blog_pic.url }}" alt="Blog image">
+                <div class="card-body">
+                    <h2 class="card-title">{{ blog.title }}</h2>
+                    <h2 class="card-title">Category: {{ blog.category.name }}</h2>
+                    <p class="card-text"><b>Posted at:</b> {{ blog.created_at }}</p>
+                    <p class="card-text" id="blog-description-{{ blog.id }}">{{ blog.description|truncatewords_html:15 }}{% if blog.description|length > 15 %} <a href="#" class="read-more" data-blog-id="{{ blog.id }}">...</a>{% endif %}</p>
+                    <div class="card-text" id="blog-description-full-{{ blog.id }}" style="display: none;">{{ blog.description|safe }}</div>
+                                                              
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    {% if selected_category_id %}
+        <p>No blogs found for the selected category.</p>
+    {% else %}
+        <p>Select a category.</p>
+    {% endif %}
+{% endif %}
+
+    </div>
+</section>
+
+<script>
+    const readMoreLinks = document.querySelectorAll('.read-more');
+    readMoreLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const blogId = event.target.dataset.blogId;
+        const description = document.querySelector(`#blog-description-${blogId}`);
+        const fullDescription = document.querySelector(`#blog-description-full-${blogId}`);
+        description.style.display = 'none';
+        fullDescription.style.display = 'block';
+      });
+    });
+  </script>
+  {% endblock %}

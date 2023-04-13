@@ -1,0 +1,39 @@
+{% load static %}
+<html>
+<head>
+	<title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="{% static 'doctor\assets\css\doc-dashboard.css' %}">
+	<link rel="stylesheet" href="{% static 'doctor\assets\css\add-blogs.css' %}">
+
+	
+</head>
+<body>
+	<div id="header">
+		<h1>Doctor Dashboard</h1>
+		<a href="{% url 'login'%}">Logout</a>
+		<a href="{% url 'my-draft-blogs'%}">My Draft Blogs</a>
+		<a href="{% url 'my-blogs'%}">My Blogs</a>
+		<a href="{% url 'add-blogs'%}">Add Blogs</a>
+		<a href="{% url 'doc-dashboard'%}">Home</a>
+		
+	</div>
+	{% block content %}
+<section>	
+	<div id="content">
+		<h2>Hello, {{ did.firstname }}</h2>
+		<h3>Personal Details:-</h3>
+        <img src= {{ did.profile_pic.url }} class="profile-pic" alt="Profile Picture">
+
+		<p>Firstname: {{ did.firstname }}</p>
+		<p>Lastname: {{ did.lastname }}</p>
+		<p>Email: {{ uid.email }}</p>
+		<p>Username: {{ uid.username }}</p>
+		<p>Address: {{ did.address }}</p>
+		<p>City: {{ did.city }}</p>
+		<p>State: {{ did.state }}</p>
+		<p>Pincode: {{ did.pincode }}</p>	
+	</div>
+	</section>
+</body>
+</html>
+{% endblock %} 
